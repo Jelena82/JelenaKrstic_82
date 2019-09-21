@@ -5,17 +5,18 @@ import sys
 
 class Repository:
 
-    def __init__(self, id, name, description, url, watchers_count):
+    def __init__(self, id, name, description, url, language, watchers_count):
         self.id = id
         self.name = name
         self.description = description
         self.url = url
+        self.language = language
         self.watchers_count = watchers_count
 
     def __str__(self):
         delimiter = "=" * 40
-        return "ID: %s\nNAME: %s\nDESCRIPTION: %s\nURL: %s\nWATCHERS_COUNT: %s\n%s" % (
-            self.id, self.name, self.description, self.url, self.watchers_count, delimiter)
+        return "ID: %s\nNAME: %s\nDESCRIPTION: %s\nURL: %s\nLANGUAGE: %s\nWATCHERS_COUNT: %s\n%s" % (
+            self.id, self.name, self.description, self.url, self.language, self.watchers_count, delimiter)
 
 
 class RepositoryService:
@@ -35,7 +36,8 @@ class RepositoryService:
         parsed = json.loads(response.content)
         for data in parsed:
             self.listOfRepositories.append(
-                Repository(data["name"], data["description"], data["url"], data["language"], data["watchers_count"]))
+                Repository(data["id"], data["name"], data["description"], data["url"], data["language"],
+                           data["watchers_count"]))
 
 
 def main():
